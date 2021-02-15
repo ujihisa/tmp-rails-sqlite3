@@ -1,10 +1,10 @@
 ## download ./db/production.sqlite3
-unless ENV['SECRET_KEY_BASE'] # skip during assets:precompile
+unless ENV['SKIP_GOOGLE_CLOUD_STORAGE'] == '1' # skip during assets:precompile
   require 'google/cloud/storage'
 
   credentials =
     if ENV['CREDENTIALS_JSON']
-      JSON.pasre(ENV['CREDENTIALS_JSON'])
+      JSON.parse(ENV['CREDENTIALS_JSON'])
     else
       'devs-sandbox-5941dd8999bb.json'
     end

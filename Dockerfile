@@ -18,7 +18,8 @@ RUN bundle install
 
 COPY . .
 
-RUN env SECRET_KEY_BASE=`bin/rake secret` bin/rake assets:precompile
+RUN env SKIP_GOOGLE_CLOUD_STORAGE=1 bin/rake secret > /tmp/secret
+RUN env SKIP_GOOGLE_CLOUD_STORAGE=1 SECRET_KEY_BASE=`cat /tmp/secret` bin/rake assets:precompile
 
 EXPOSE 8080
 
