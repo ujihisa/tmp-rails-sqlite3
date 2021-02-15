@@ -14,7 +14,9 @@ storage = Google::Cloud::Storage.new(
 
 bucket = storage.bucket('tmp-rails-sqlite3')
 file = bucket.file('production.sqlite3')
-file.download('db/production.sqlite3')
+file.download("db/#{Rails.env}.sqlite3")
+puts 'ujihisa ok'
+system 'ls -af db'
 
 ## ok
 
@@ -39,3 +41,8 @@ module TmpRailsSqlite3
     # the framework and any gems in your application.
   end
 end
+
+TmpRailsSqlite3::Application.class_eval do
+  config.google_cloud_storage_bucket = bucket
+end
+STDOUT.sync = true
