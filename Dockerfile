@@ -8,10 +8,22 @@ RUN \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
+WORKDIR /usr/src/app
+
+RUN \
+  export GCSFUSE_REPO=gcsfuse-buster &&\
+  echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list &&\
+  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -  &&\
+  apt-get update -qq &&\
+  apt-get install -y gcsfuse &&\
+  apt-get clean &&\
+  rm -rf /var/lib/apt/lists/* &&\
+  gcsfuse tmp-rails-sqlite3 ./tmp/aaa &&\
+  ls -a ./tmp/ &&\
+  ls -a ./tmp/aaa
+
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
-
-WORKDIR /usr/src/app
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
