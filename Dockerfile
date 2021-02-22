@@ -18,9 +18,9 @@ RUN \
   apt-get install -y gcsfuse &&\
   apt-get clean &&\
   rm -rf /var/lib/apt/lists/* &&\
-  gcsfuse tmp-rails-sqlite3 ./tmp/aaa &&\
-  ls -a ./tmp/ &&\
-  ls -a ./tmp/aaa
+  mkdir tmp &&\
+  if [ "${GOOGLE_APPLICATION_CREDENTIALS}" != "" ]; then gcsfuse tmp-rails-sqlite3 ./tmp/aaa; fi &&\
+  ls -a
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
