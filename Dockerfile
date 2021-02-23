@@ -22,6 +22,9 @@ RUN \
   if [ "${GOOGLE_APPLICATION_CREDENTIALS}" != "" ]; then gcsfuse tmp-rails-sqlite3 ./tmp/aaa; fi &&\
   ls -a
 
+COPY package.json yarn.lock $APP_HOME/
+RUN yarn install --check-files --silent
+
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
