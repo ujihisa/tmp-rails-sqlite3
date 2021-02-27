@@ -16,8 +16,6 @@ unless ENV['SKIP_GOOGLE_CLOUD_STORAGE'] == '1' # skip during assets:precompile
   bucket = storage.bucket('tmp-rails-sqlite3')
   file = bucket.file('production.sqlite3')
   file.download("db/#{Rails.env}.sqlite3")
-  puts 'ujihisa ok'
-  system 'ls -af db'
 end
 
 ## ok

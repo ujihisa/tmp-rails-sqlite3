@@ -17,10 +17,7 @@ RUN \
   apt-get update -qq &&\
   apt-get install -y gcsfuse &&\
   apt-get clean &&\
-  rm -rf /var/lib/apt/lists/* &&\
-  mkdir tmp &&\
-  if [ "${GOOGLE_APPLICATION_CREDENTIALS}" != "" ]; then gcsfuse tmp-rails-sqlite3 ./tmp/aaa; fi &&\
-  ls -a
+  rm -rf /var/lib/apt/lists/*
 
 COPY package.json yarn.lock $APP_HOME/
 RUN yarn install --check-files --silent
@@ -38,4 +35,4 @@ RUN env SKIP_GOOGLE_CLOUD_STORAGE=1 SECRET_KEY_BASE=`cat /tmp/secret` bin/rake a
 
 EXPOSE 8080
 
-CMD ["bundle", "exec", "bin/rails", "server", "--binding", "0.0.0.0"]
+CMD ["bash", "-eu", "./start_app.sh"]
