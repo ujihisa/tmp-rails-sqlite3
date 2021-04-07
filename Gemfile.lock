@@ -109,7 +109,7 @@ GEM
       rexml
       signet (~> 0.14)
       webrick
-    google-apis-iamcredentials_v1 (0.2.0)
+    google-apis-iamcredentials_v1 (0.3.0)
       google-apis-core (~> 0.1)
     google-apis-storage_v1 (0.3.0)
       google-apis-core (~> 0.1)
@@ -206,7 +206,7 @@ GEM
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.2.4)
+    rexml (3.2.5)
     ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
