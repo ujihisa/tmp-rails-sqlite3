@@ -1,4 +1,4 @@
-FROM ruby:3.0.0
+FROM ruby:3.0.1
 
 RUN \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
