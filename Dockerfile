@@ -8,7 +8,10 @@ RUN \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-WORKDIR /usr/src/app
+ENV \
+      APP_HOME=/usr/src/app \
+      BUNDLE_PATH=/vendor/bundle/3.0.1
+WORKDIR "${APP_HOME}"
 
 COPY package.json yarn.lock $APP_HOME/
 RUN yarn install --check-files --silent
