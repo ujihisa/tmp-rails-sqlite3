@@ -25,13 +25,15 @@ RUN yarn install --check-files --silent
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock $APP_HOME/
 RUN bundle install
 
-COPY . .
+COPY . $APP_HOME/
 
-RUN env SKIP_GOOGLE_CLOUD_STORAGE=1 bin/rake secret > /tmp/secret
-RUN env SKIP_GOOGLE_CLOUD_STORAGE=1 SECRET_KEY_BASE=`cat /tmp/secret` bin/rake assets:precompile
+RUN if [ "${RAILS_ENV}" = "production" ]; then\
+  export SKIP_GOOGLE_CLOUD_STORAGE=1;\
+  env SECRET_KEY_BASE=`bin/rake secret` bin/rake assets:precompile;\
+fi
 
 EXPOSE 8080
 
