@@ -1,6 +1,12 @@
-`docker-compose up --build -d`
-`tail -f log/development.log`
-`bundle lock --update`
+# Developer note
+
+Useful commands
+
+```
+docker-compose up --build -d
+tail -f log/development.log
+bundle lock --update
+```
 
 ## Licence
 
