@@ -11,6 +11,10 @@ RUN \
 ENV \
       APP_HOME=/usr/src/app \
       BUNDLE_PATH=/vendor/bundle/3.0.1
+
+ARG RAILS_ENV
+ENV RAILS_ENV=${RAILS_ENV:-development}
+
 WORKDIR "${APP_HOME}"
 
 COPY package.json yarn.lock $APP_HOME/
@@ -23,9 +27,6 @@ COPY Gemfile Gemfile.lock $APP_HOME/
 RUN bundle install
 
 COPY . $APP_HOME/
-
-ARG RAILS_ENV
-ENV RAILS_ENV=${RAILS_ENV:-development}
 
 RUN if [ "${RAILS_ENV}" = "production" ]; then\
   export SKIP_GOOGLE_CLOUD_STORAGE=1;\
